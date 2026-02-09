@@ -13,32 +13,17 @@ All files are MATLAB scripts/functions executed directly in MATLAB (R2017+). No 
 ```matlab
 % Main simulation (pressure + temperature profiles along pipeline)
 Danyltsiv_perev
-
-% Multi-point validation against 5 experimental conditions
-maindanyboh
-
-% Simplified pressure-only simulation
-Rozp_PT1latest
-
-% Parameter optimization (friction factor via lsqnonlin)
-optimizelatest       % multi-point optimization
-optimize_one         % single-point optimization
-
-% Data visualization
-plot_pipeline_data   % individual time-series plots
-exp_data_all_in_one  % subplot layout
 ```
 
-**Required toolboxes:** Optimization Toolbox (lsqnonlin), standard ODE solver (ode45).
+**Required toolboxes:** standard ODE solver (ode45).
 
 ## Architecture
 
-### ODE Models (core flow equations)
+### ODE Model (core flow equations)
 - **SystRivn_v_2_Danyl.m** — Full coupled system: solves dp/dx and dT/dx simultaneously using ode45. Includes friction, kinetic energy, Joule-Thomson cooling, and convective heat transfer terms.
-- **Rozrax_Cp.m** — Simplified pressure-only model with fixed temperature. Used for faster optimization runs.
 
 ### Thermophysical Property Functions
-These are called by the ODE models to compute gas properties at each solver step:
+These are called by the ODE model to compute gas properties at each solver step:
 - **Fvnic.m** → compressibility factor Z and molar density (VNIC SMV equation of state)
 - **fdens.m** → iterative molar density solver (called by Fvnic)
 - **dat_vnic.m** → critical parameters, binary interaction coefficients, polynomial coefficients for VNIC SMV
@@ -48,14 +33,15 @@ These are called by the ODE models to compute gas properties at each solver step
 - **met_nulp.m** → Joule-Thomson coefficient
 - **VisG1.m** → dynamic viscosity (GOST 30319.1-96)
 
+### Utility Functions
+- **day2sec.m** → converts days to seconds
+- **k2c.m** → converts Kelvin to Celsius
+
 ### Call Chain
 `Danyltsiv_perev` → ode45 → `SystRivn_v_2_Danyl` → {`Fvnic`→`fdens`+`dat_vnic`, `Cp_Vnic`→`calkcpo`, `FGerg91`, `met_nulp`, `VisG1`}
 
 ### Experimental Data (`*_data.m` files)
-Each file defines a column vector of ~1000 measurements: `P0_data` (inlet pressure), `pk_data` (outlet pressure), `Q_data` (flow rate), `RO0_data` (density), `T1_data`/`t2_data` (temperatures), `tg_data` (ground temp), `ii_index_data` (indices). Accessed via `getExpData(index)` which returns a single operating point.
-
-### Optimization Flow
-`optimizelatest` → `lsqnonlin` objective calls `maindanyboh`-style loop → for each of 5 test points, runs ODE solver → compares computed outlet pressure to experimental → returns relative error vector. The optimized parameter is the friction factor (lyam/k).
+Each file defines a column vector of ~1000 measurements: `P0_data` (inlet pressure), `pk_data` (outlet pressure), `Q_data` (flow rate), `RO0_data` (density), `T1_data`/`t2_data` (temperatures), `tg_data` (ground temp).
 
 ## Key Constants
 
