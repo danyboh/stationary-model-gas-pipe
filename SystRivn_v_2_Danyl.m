@@ -39,7 +39,7 @@ kt=1.75;          % Vt/(m2*K)
   %lyamda = (1.74-2*log10(2*Rsh/Dvn-k*log10(kD - kR*log10(kD+3.3333*kR))/Re))^(-2);%standart 
   
   %lyamda = 0.316/(Re).^(1/4) * k; % blasius
-  k = 1.64;
+  k = 3.536;
   lyamda = (0.79*log(Re) - k)^(-2);
   %lyamda = 0.0092269839;
   

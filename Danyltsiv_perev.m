@@ -40,7 +40,7 @@ p_final_expected = pEnd_atm;      % Expected final pressure
 
 % Calculate errors
 absolute_error = p_final_calculated - p_final_expected;
-relative_error_percent = (absolute_error / (P0_atm - p_final_expected)) * 100;
+relative_error_percent = (absolute_error / (p_final_expected)) * 100;
 
 % Display results
 fprintf('\n=== PRESSURE DROP ANALYSIS ===\n');
