@@ -1,5 +1,5 @@
-function Mjt = met_nulp (p,T,xa,xy,Ro_st)
-% Format: [Mjt] = met_nulp (p,T,xa,xy,Ro_st);
+function Mjt = met_nulp_func(p,T,xa,xy,Ro_st)
+% Format: [Mjt] = met_nulp_func (p,T,xa,xy,Ro_st);
 % Mjt - Joule-Thomson coefficient, K/MPa;
 % p - absolute pressure, MPa;
 % T - absolute temperature, K;
@@ -11,7 +11,7 @@ Tst = 293.15; % K
 Tpk = 88.25*(0.9915 + 1.759*Ro_st - xy - 1.681*xa);
 Ropk = 163.5*(Ro_st/0.6682)^0.6 + 62.62*xa + 163.359*xy;
 tau = T/Tpk;
-K = FGerg91(p,T,xa,xy,Ro_st);
+K = FGerg91Func(p,T,xa,xy,Ro_st);
 Ro = p/Pst*Tst/T*Ro_st/K;
 Om = Ro/Ropk;
 % x =[ 94.9 2.6 0.4 0.1 0.1 1.2 0.6 0.1];

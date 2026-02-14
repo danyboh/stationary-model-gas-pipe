@@ -1,7 +1,7 @@
-function [DRo,Rom,z,A1,A2,A3,A4]=fdens(p,T,Rom);
+function [DRo,Rom,z,A1,A2,A3,A4]=fdensfunc(p,T,Rom);
 % Auxiliary function for calculation the compressibility factor and molar
 % density by the equation VNIC SMV.
-% Format: [DRo,Rom,z,A1,A2,A3,A4]=fdens(p,T,Rom)
+% Format: [DRo,Rom,z,A1,A2,A3,A4]=fdensfunc(p,T,Rom)
 % z - compressibility factor;
 % A1,A2,A3 - parameters for calculation the isoentrope factor (Kapa);
 % A4 - A4=dz/dTp, derivative for calculation drossel coefficient;

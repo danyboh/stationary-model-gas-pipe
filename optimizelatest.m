@@ -23,7 +23,7 @@ function r = R(lyam, pInp, Qv, pEnd)
 percentErrorArr = 1:numel(pInp);
 pEi = 1;
 for i=1:numel(pInp)
-    percentErrorArr(pEi) = calcBase(lyam, pInp(i), Qv(i), pEnd(i));
+    percentErrorArr(pEi) = calcBaseFunc(lyam, pInp(i), Qv(i), pEnd(i));
     pEi = pEi + 1;
 end
 

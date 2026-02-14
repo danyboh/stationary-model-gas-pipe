@@ -11,12 +11,12 @@ function r = R(a)
 u0=0; uf=122000;
 pEnd_atm = 48.5;
 options = odeset('RelTol', 1e-6, 'AbsTol', 1e-9, 'MaxStep', 100);
-Q1=day2sec(3506); 
+Q1=day2sec_func(3506); 
 P0_atm = 66.6; 
-p1 = P0_atm*101325;   % Pa, тиск газу на вході
+p1 = P0_atm*101325;   % Pa
 T1 = 273.15+40;
 y0=[p1 T1];
-[u,y]=ode45(@(u,p) SystRivn_v_2_Danyl(u,p, Q1, a),[u0 uf], y0, options);
+[u,y]=ode45(@(u,p) SystRivn_v_2_Danyl_Func(u,p, Q1, a),[u0 uf], y0, options);
 % Convert pressure from Pa to atm (1 atm = 101325 Pa)
 p_atm = y(:,1) / 101325;
 

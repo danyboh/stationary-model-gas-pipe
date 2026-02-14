@@ -1,4 +1,4 @@
-function [pInp, Qv, pEnd, ro, tempEnd, tempStart, tempGround] = getExpData(ind)
+function [pInp, Qv, pEnd, ro, tempEnd, tempStart, tempGround] = getExpDataFunc(ind)
 
 thisDir = fileparts(mfilename('fullpath'));
 if isempty(thisDir); thisDir = pwd; end

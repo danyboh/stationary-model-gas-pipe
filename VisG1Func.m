@@ -1,8 +1,8 @@
-function Mj=VisG1(p,T,xa,xy,Roc);
+function Mj=VisG1Func(p,T,xa,xy,Roc);
 % Calculation of the dynamic viscosity by metods
 % GOST 30319.1-96. Delta=6% in respect of equation VNIC SMV.
 % p=0.1 - 12 MPa
-% Format: Mj=VisG1(p,T,xa,xy,Roc)
+% Format: Mj=VisG1Func(p,T,xa,xy,Roc)
 % Mj - dynamic viscosity, mkPa*s
 % p - absolute pressure, MPa;
 % T - temperature, K;

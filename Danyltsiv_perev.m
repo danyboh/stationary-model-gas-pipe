@@ -3,7 +3,7 @@ clc, clear
 P0_atm = 66.6;
 p1 = P0_atm*101325;   % Pa
 T1 = 273.15+40;   % K
-Q1=day2sec(3506);      %m^3/sec
+Q1=day2sec_func(3506);      %m^3/sec
 pEnd_atm = 48.5;
 L=122000;        % m
 Dvn=1.388;      % m
@@ -16,9 +16,9 @@ Dz=1.428;       % m
 
 l0=0; lf=122000;  % m
 y0=[p1 T1];
-[l,y]=ode45(@(u,y) SystRivn_v_2_Danyl(u,y, Q1, 3.57254168),[l0 lf], y0);
+[l,y]=ode45(@(u,y) SystRivn_v_2_Danyl_Func(u,y, Q1, 3.57254168),[l0 lf], y0);
 
-%[l,y]=ode45('SystRivn_v_2_Danyl',[l0 lf],y0, Q1);
+%[l,y]=ode45('SystRivn_v_2_Danyl_Func',[l0 lf],y0, Q1);
 
 n=size(y);
 px=y(n(1),1);   % Pa
@@ -32,7 +32,7 @@ p=px/1e6;           % MPa
 T=Tx;               % K
 
 p_atm = y(:,1) / 101325;
-t_c = k2c(y(:,2)); 
+t_c = k2c_func(y(:,2)); 
 
 % Calculate final pressure and error analysis
 p_final_calculated = p_atm(end);  % Last calculated pressure value

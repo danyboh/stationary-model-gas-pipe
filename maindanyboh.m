@@ -13,7 +13,7 @@ absoluteErrors = 1:numel(P0);
 p_calculated = 1:numel(P0);
 
 for i=1:numel(P0)
-    [p_final_calculated, relative_error_percent, absolute_error] = calcBaseWithValues(3.57254168, P0(i), Q(i), Pk(i));
+    [p_final_calculated, relative_error_percent, absolute_error] = calcBaseWithValuesFunc(3.57254168, P0(i), Q(i), Pk(i));
     percentErrorArr(i) = relative_error_percent;
     absoluteErrors(i) = absolute_error;
     p_calculated(i) = p_final_calculated;

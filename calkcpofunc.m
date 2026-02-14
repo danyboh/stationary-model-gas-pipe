@@ -1,4 +1,4 @@
-function [Cpom, Cpoi]=calkcpo(x,T);
+function [Cpom, Cpoi]=calkcpofunc(x,T);
 if length(x) == 20
  Xaga=zeros(1,18);
  Xaga(1:5)=x(1:5); Xaga(6:7)=x(11:12);Xaga(8)=x(15);Xaga(9:13)=x(6:10);

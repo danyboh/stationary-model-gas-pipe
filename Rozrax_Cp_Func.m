@@ -1,4 +1,4 @@
-function yp=Rozrax_Cp(u,p, Q, ro, tempGasStart, k) % p - Pa
+function yp=Rozrax_Cp_Func(u,p, Q, ro, tempGasStart, k) % p - Pa
 % x = [ Metan   Etan   Propan  n-Butan  i-Butan  Azot  CO2  H2S ]
   x = [ 93.635  3.075  0.881   0.141    0.170   1.181  0.917  0]/100;  
  % Ro_st = 0.7186  
@@ -11,11 +11,11 @@ L=122000;
 Dv=1.3880; %m
 
 pm = p/1e6;  % MPa
-T = c2k(tempGasStart); % K
-[~,~,Mm] = Cp_Vnic(pm,T,x);  %  [ kDg/(kg*K), kg/m3, kg/kmol ]
+T = c2k_func(tempGasStart); % K
+[~,~,Mm] = Cp_Vnic_func(pm,T,x);  %  [ kDg/(kg*K), kg/m3, kg/kmol ]
 xa = x(6)/100; xy = x(7)/100;
 
-[~,z,~]=FGerg91(pm,T,xa,xy,Roc);
+[~,z,~]=FGerg91Func(pm,T,xa,xy,Roc);
 mu=1.8e-05; % methan gas Pa * S for temp 293 K
 %Re = (4 * ro * Q) / (pi * Dv * mu);
 

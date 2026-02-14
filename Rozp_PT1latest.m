@@ -1,11 +1,11 @@
 clc; clear;
 u0=0; uf=122000;
-[P0_atm, Q, pEnd_atm, ro, ~, tempGasStart, ~] = getExpData(5);
-p0 = atm2pa(P0_atm); % convert to Pa
+[P0_atm, Q, pEnd_atm, ro, ~, tempGasStart, ~] = getExpDataFunc(5);
+p0 = atm2pa_func(P0_atm); % convert to Pa
 options = odeset('RelTol', 1e-6, 'AbsTol', 1e-9, 'MaxStep', 100);
-Qsec = day2sec(Q); % from m3/day to m3/s
+Qsec = day2sec_func(Q); % from m3/day to m3/s
 %best for point 5 = 0.0091789810
-[u,y]=ode45(@(u,p) Rozrax_Cp(u,p, Qsec, ro, tempGasStart, 0.0062230071),[u0 uf], p0, options);
+[u,y]=ode45(@(u,p) Rozrax_Cp_Func(u,p, Qsec, ro, tempGasStart, 0.0062230071),[u0 uf], p0, options);
 % Convert pressure from Pa to atm (1 atm = 101325 Pa)
 p_atm = y / 101325;
 

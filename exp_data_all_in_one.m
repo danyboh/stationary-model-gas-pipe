@@ -37,21 +37,21 @@ time_hours = (0:N-1).' * 2;
 % Define data arrays
 data_vars = {P0, Q, pk, RO0, T1, t2, tg};
 titles = {
-    'Тиск на вході трубопроводу';
-    "Об'ємна витрата зведена до стандартних умов";
-    'Тиск на виході трубопроводу';
-    'Густина газу за стандартних умов';
-    'Температура газу на виході трубопрводу';
-    'Температура газу на вході трубопроводу';
-    'Температура грунту'
+    'Pressure at pipeline inlet';
+    'Gas flow rate at standard conditions';
+    'Pressure at pipeline outlet';
+    'Gas density at standard conditions';
+    'Gas temperature at pipeline inlet';
+    'Gas temperature at pipeline outlet';
+    'Ground temperature'
 };
 ylabels = {
     'P_0, atm';
-    'Q, тис. м^{3}/год';
+    'Q, thous. m^{3}/day';
     'p_k, atm';
-    '\rho_0, кг/м^{3}';
-    't_1, °C';
-    't_2, °C';
+    '\rho_0, kg/m^{3}';
+    't_1, C';
+    't_2, C';
     't_g, K'
 };
 
@@ -64,7 +64,7 @@ for i = 1:4
     grid on;
     title(titles{i}, 'FontSize', 11);
     ylabel(ylabels{i}, 'FontSize', 10);
-    xlabel('t, год', 'FontSize', 10);
+    xlabel('t, hours', 'FontSize', 10);
 end
 
 
@@ -78,6 +78,6 @@ for i = 5:7
     grid on;
     title(titles{i}, 'FontSize', 11);
     ylabel(ylabels{i}, 'FontSize', 10);
-    xlabel('t, год', 'FontSize', 10);
+    xlabel('t, hours', 'FontSize', 10);
 end
 

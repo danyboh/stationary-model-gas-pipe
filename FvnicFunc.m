@@ -1,8 +1,8 @@
-function [Kvnic,z,A1,A2,A3,A4,Mm,Rom_r]=Fvnic(p,T,x);
+function [Kvnic,z,A1,A2,A3,A4,Mm,Rom_r]=FvnicFunc(p,T,x);
 % Calculation of the compressibility coefficient by the equation VNIC SMV
 % (GOST 30319.2). T = 250 - 340 K, P= 0.1 - 12 MPa.
-% Auxiliary files: fdens.m, dat_vnic.m
-% Format: [Kvnic,z,A1,A2,A3,A4]=Fvnic(p,T,x)
+% Auxiliary files: fdensfunc.m, dat_vnic.m
+% Format: [Kvnic,z,A1,A2,A3,A4]=FvnicFunc(p,T,x)
 % Kvnic - compressibility coefficient;
 % z - compressibility factor;
 % A1,A2,A3 - parameters for calculation the isoentrope factor (Kapa);
@@ -31,7 +31,7 @@ if length(x)==18
  %sum(x), pause
 end
 % 1. DATA CHAPTER
- global Ropk Tpk c R % For function Fdens.m
+ global Ropk Tpk c R % For function fdensfunc.m
 dat_vnic % Load the datas from files Dat_vnic.m to workspase
  % 2. CALCULATION CHAPTER
  % 2.1. Definition the composition and state of the natural gaz
@@ -57,24 +57,24 @@ dat_vnic % Load the datas from files Dat_vnic.m to workspase
 
  Ppk=1e-3*R*Ropk*Tpk*(0.28707-0.05559*Om);
  % -----------------------------------------------------------------------
- % Робочі умови
+ %
  Pp=p/Ppk;
  Rom=9e3*p/(R*T*(1.1*Pp+0.7));
  c=Akl+Bkl*Om;
- [DRo,Rom,z]=fdens(p,T,Rom); iter=1;
+ [DRo,Rom,z]=fdensfunc(p,T,Rom); iter=1;
  while abs(DRo/Rom)>=1e-6
- [DRo,Rom,z,A1,A2,A3,A4]=fdens(p,T,Rom);
+ [DRo,Rom,z,A1,A2,A3,A4]=fdensfunc(p,T,Rom);
  iter=iter+1;
  end
  Rom_r = Rom;
- % Стандартні умови
+ %
  Pc=0.101325; Tc=293.15;
  Pp=Pc/Ppk;
  Rom=9e3*Pc/(R*Tc*(1.1*Pp+0.7));
  c=Akl+Bkl*Om;
- [DRo,Rom,zc]=fdens(Pc,Tc,Rom); iter=1;
+ [DRo,Rom,zc]=fdensfunc(Pc,Tc,Rom); iter=1;
  while abs(DRo/Rom)>=1e-6
- [DRo,Rom,zc]=fdens(Pc,Tc,Rom);
+ [DRo,Rom,zc]=fdensfunc(Pc,Tc,Rom);
  iter=iter+1;
  end
  %Kc=[1 2 3 4 4]; % Number of Carbon-atoms in moleculs of components (C<k>H<2k+2>)

@@ -1,9 +1,9 @@
-function [Kgerg,Zgerg,zc]=FGerg91(p,T,xa,xy,Roc);
+function [Kgerg,Zgerg,zc]=FGerg91Func(p,T,xa,xy,Roc);
 % Calculation of the compressibility coefficient by the
 % modified equation GERG-91 mod. (GOST 30319.2)
 % T = 250 - 340 K, P = 0.1 - 12 MPa
 %
-% Format: [Kgerg,Zgerg,zc]=fgerg91(p,T,xa,xy,Roc);
+% Format: [Kgerg,Zgerg,zc]=FGerg91Func(p,T,xa,xy,Roc);
 %
 % Kgerg - compressibility coefficient (Kgerg=Zgerg/zc);
 % Zgerg - compressibility factor;

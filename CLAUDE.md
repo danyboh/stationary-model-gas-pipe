@@ -20,25 +20,28 @@ Danyltsiv_perev
 ## Architecture
 
 ### ODE Model (core flow equations)
-- **SystRivn_v_2_Danyl.m** — Full coupled system: solves dp/dx and dT/dx simultaneously using ode45. Includes friction, kinetic energy, Joule-Thomson cooling, and convective heat transfer terms.
+- **SystRivn_v_2_Danyl_Func.m** — Full coupled system: solves dp/dx and dT/dx simultaneously using ode45. Includes friction, kinetic energy, Joule-Thomson cooling, and convective heat transfer terms.
 
 ### Thermophysical Property Functions
 These are called by the ODE model to compute gas properties at each solver step:
-- **Fvnic.m** → compressibility factor Z and molar density (VNIC SMV equation of state)
-- **fdens.m** → iterative molar density solver (called by Fvnic)
+- **FvnicFunc.m** → compressibility factor Z and molar density (VNIC SMV equation of state)
+- **fdensfunc.m** → iterative molar density solver (called by FvnicFunc)
 - **dat_vnic.m** → critical parameters, binary interaction coefficients, polynomial coefficients for VNIC SMV
-- **Cp_Vnic.m** → heat capacity Cp, density, molar mass
-- **calkcpo.m** → ideal gas heat capacity polynomials for 8-component mixture
-- **FGerg91.m** → GERG-91 compressibility (used for Joule-Thomson and viscosity)
-- **met_nulp.m** → Joule-Thomson coefficient
-- **VisG1.m** → dynamic viscosity (GOST 30319.1-96)
+- **Cp_Vnic_func.m** → heat capacity Cp, density, molar mass
+- **calkcpofunc.m** → ideal gas heat capacity polynomials for 8-component mixture
+- **FGerg91Func.m** → GERG-91 compressibility (used for Joule-Thomson and viscosity)
+- **met_nulp_func.m** → Joule-Thomson coefficient
+- **VisG1Func.m** → dynamic viscosity (GOST 30319.1-96)
 
 ### Utility Functions
-- **day2sec.m** → converts days to seconds
-- **k2c.m** → converts Kelvin to Celsius
+- **day2sec_func.m** → converts days to seconds
+- **k2c_func.m** → converts Kelvin to Celsius
+- **atm2pa_func.m** → converts atmospheres to pascals
+- **c2k_func.m** → converts Celsius to Kelvin
+- **m3h_to_m3s_func.m** → converts m³/h to m³/s
 
 ### Call Chain
-`Danyltsiv_perev` → ode45 → `SystRivn_v_2_Danyl` → {`Fvnic`→`fdens`+`dat_vnic`, `Cp_Vnic`→`calkcpo`, `FGerg91`, `met_nulp`, `VisG1`}
+`Danyltsiv_perev` → ode45 → `SystRivn_v_2_Danyl_Func` → {`FvnicFunc`→`fdensfunc`+`dat_vnic`, `Cp_Vnic_func`→`calkcpofunc`, `FGerg91Func`, `met_nulp_func`, `VisG1Func`}
 
 ### Experimental Data (`*_data.m` files)
 Each file defines a column vector of ~1000 measurements: `P0_data` (inlet pressure), `pk_data` (outlet pressure), `Q_data` (flow rate), `RO0_data` (density), `T1_data`/`t2_data` (temperatures), `tg_data` (ground temp).

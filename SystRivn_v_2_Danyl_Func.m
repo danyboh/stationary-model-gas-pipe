@@ -1,4 +1,4 @@
-function yp=SystRivn_v_2_Danyl(l,y, Q, k)
+function yp=SystRivn_v_2_Danyl_Func(l,y, Q, k)
 % x = [ Metan   Etan   Propan  n-Butan  i-Butan  Azot  CO2  H2S ]
   x = [ 93.635  3.075  0.881   0.141    0.170   1.181  0.917  0]/100;
 
@@ -21,13 +21,13 @@ dely = 0;         % m
   p=p1/1e6;     % MPa
   T=y(2);       % K
 
-[Cp_kg,Ro,Mm] = Cp_Vnic(p,T,x);     % [ kDg/(kg*K), kg/m3, kg/kmol ]
+[Cp_kg,Ro,Mm] = Cp_Vnic_func(p,T,x);     % [ kDg/(kg*K), kg/m3, kg/kmol ]
 Cp_kg = Cp_kg*1000;                 % Dg/(kg*K)
 xa = x(6); xy = x(7);
-Kjt = met_nulp(p,T,xa,xy,Roc);     % K/MPa
+Kjt = met_nulp_func(p,T,xa,xy,Roc);     % K/MPa
 Kjt = Kjt / 1e6;                    % K/Pa
-Mj=VisG1(p,T,xa,xy,Roc);            % mkPa*s
-[Kgerg,z,zc]=FGerg91(p,T,xa,xy,Roc);
+Mj=VisG1Func(p,T,xa,xy,Roc);            % mkPa*s
+[Kgerg,z,zc]=FGerg91Func(p,T,xa,xy,Roc);
 
 kt=1.75;          % Vt/(m2*K)
 
