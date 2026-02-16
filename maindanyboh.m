@@ -1,4 +1,5 @@
 clc; clear; close all;
+addpath('functions', 'data');
 
 P0 = [66.6; 66.5; 66.4; 66.2; 66.1];
 

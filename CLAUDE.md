@@ -17,23 +17,39 @@ Danyltsiv_perev
 
 **Required toolboxes:** standard ODE solver (ode45).
 
+## Project Structure
+
+```
+├── functions/          % All MATLAB functions
+├── data/               % Experimental data scripts and coefficient tables
+├── Danyltsiv_perev.m   % Main simulation entry point
+├── maindanyboh.m       % Batch simulation with error analysis
+├── optimize_one.m      % Single-point optimization (lsqnonlin)
+├── optimize_one_new.m  % Single-point optimization (fixed params)
+├── optimizelatest.m    % Multi-point optimization (trapz)
+├── Rozp_PT1latest.m    % Pressure-only simulation
+├── plot_pipeline_data.m      % Individual data plots
+└── exp_data_all_in_one.m     % Subplot data overview
+```
+
+Entry point scripts add `functions/` and `data/` to the MATLAB path via `addpath`.
+
 ## Architecture
 
-### ODE Model (core flow equations)
+### ODE Model (core flow equations) — `functions/`
 - **SystRivn_v_2_Danyl_Func.m** — Full coupled system: solves dp/dx and dT/dx simultaneously using ode45. Includes friction, kinetic energy, Joule-Thomson cooling, and convective heat transfer terms.
 
-### Thermophysical Property Functions
+### Thermophysical Property Functions — `functions/`
 These are called by the ODE model to compute gas properties at each solver step:
 - **FvnicFunc.m** → compressibility factor Z and molar density (VNIC SMV equation of state)
 - **fdensfunc.m** → iterative molar density solver (called by FvnicFunc)
-- **dat_vnic.m** → critical parameters, binary interaction coefficients, polynomial coefficients for VNIC SMV
 - **Cp_Vnic_func.m** → heat capacity Cp, density, molar mass
 - **calkcpofunc.m** → ideal gas heat capacity polynomials for 8-component mixture
 - **FGerg91Func.m** → GERG-91 compressibility (used for Joule-Thomson and viscosity)
 - **met_nulp_func.m** → Joule-Thomson coefficient
 - **VisG1Func.m** → dynamic viscosity (GOST 30319.1-96)
 
-### Utility Functions
+### Utility Functions — `functions/`
 - **day2sec_func.m** → converts days to seconds
 - **k2c_func.m** → converts Kelvin to Celsius
 - **atm2pa_func.m** → converts atmospheres to pascals
@@ -43,8 +59,9 @@ These are called by the ODE model to compute gas properties at each solver step:
 ### Call Chain
 `Danyltsiv_perev` → ode45 → `SystRivn_v_2_Danyl_Func` → {`FvnicFunc`→`fdensfunc`+`dat_vnic`, `Cp_Vnic_func`→`calkcpofunc`, `FGerg91Func`, `met_nulp_func`, `VisG1Func`}
 
-### Experimental Data (`*_data.m` files)
-Each file defines a column vector of ~1000 measurements: `P0_data` (inlet pressure), `pk_data` (outlet pressure), `Q_data` (flow rate), `RO0_data` (density), `T1_data`/`t2_data` (temperatures), `tg_data` (ground temp).
+### Experimental Data — `data/`
+- **dat_vnic.m** → critical parameters, binary interaction coefficients, polynomial coefficients for VNIC SMV
+- **`*_data.m` files** — Each defines a column vector of ~1000 measurements: `P0_data` (inlet pressure), `pk_data` (outlet pressure), `Q_data` (flow rate), `RO0_data` (density), `T1_data`/`t2_data` (temperatures), `tg_data` (ground temp).
 
 ## Key Constants
 

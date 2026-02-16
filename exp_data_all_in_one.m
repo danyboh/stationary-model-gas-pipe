@@ -2,19 +2,21 @@
 % Load data from separate .m files and create subplots versus time.
 % Compatible with MATLAB R2017.
 clear; clc; close all;
+addpath('functions', 'data');
 
-% Location of the data files (assumed to be in the same folder as this script)
+% Location of the data files
 thisDir = fileparts(mfilename('fullpath'));
 if isempty(thisDir); thisDir = pwd; end
+dataDir = fullfile(thisDir, 'data');
 
 % Load variables
-run(fullfile(thisDir, 'P0_data.m'));
-run(fullfile(thisDir, 'Q_data.m'));
-run(fullfile(thisDir, 'pk_data.m'));
-run(fullfile(thisDir, 'RO0_data.m'));
-run(fullfile(thisDir, 'T1_data.m'));
-run(fullfile(thisDir, 't2_data.m'));
-run(fullfile(thisDir, 'tg_data.m'));
+run(fullfile(dataDir, 'P0_data.m'));
+run(fullfile(dataDir, 'Q_data.m'));
+run(fullfile(dataDir, 'pk_data.m'));
+run(fullfile(dataDir, 'RO0_data.m'));
+run(fullfile(dataDir, 'T1_data.m'));
+run(fullfile(dataDir, 't2_data.m'));
+run(fullfile(dataDir, 'tg_data.m'));
 start = 11;
 N = 21;
 

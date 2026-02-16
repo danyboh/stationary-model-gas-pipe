@@ -3,19 +3,21 @@
 % Compatible with MATLAB R2017.
 
 clear; clc; close all;
+addpath('functions', 'data');
 
-% Location of the data files (assumed to be in the same folder as this script)
+% Location of the data files
 thisDir = fileparts(mfilename('fullpath'));
 if isempty(thisDir); thisDir = pwd; end
+dataDir = fullfile(thisDir, 'data');
 
 % Load variables
-run(fullfile(thisDir, 'P0_data.m'));
-run(fullfile(thisDir, 'Q_data.m'));
-run(fullfile(thisDir, 'pk_data.m'));
-run(fullfile(thisDir, 'RO0_data.m'));
-run(fullfile(thisDir, 'T1_data.m'));
-run(fullfile(thisDir, 't2_data.m'));
-run(fullfile(thisDir, 'tg_data.m'));
+run(fullfile(dataDir, 'P0_data.m'));
+run(fullfile(dataDir, 'Q_data.m'));
+run(fullfile(dataDir, 'pk_data.m'));
+run(fullfile(dataDir, 'RO0_data.m'));
+run(fullfile(dataDir, 'T1_data.m'));
+run(fullfile(dataDir, 't2_data.m'));
+run(fullfile(dataDir, 'tg_data.m'));
 
 % Check lengths
 lens = [numel(P0), numel(Q), numel(pk), numel(RO0), numel(T1), numel(t2), numel(tg)];
@@ -49,13 +51,13 @@ fprintf('Step: 2 hours\n');
 fprintf('Total span: %.2f days (%.2f months)\n', span_days, span_days / 30.4375);
 
 % Create each plot with x-axis limited to actual span
-make_plot(time_x, P0, 'P0',  'atm',        xlab, xticks_vals, x_max, 'Тиск на вході в трубопровід, атм');
-make_plot(time_x, Q,  'Q',   'm^3/s (STP)',xlab, xticks_vals, x_max, 'об’ємна витрата зведена до стандартних умов, м3/сек');
-make_plot(time_x, pk, 'pk',  'atm',        xlab, xticks_vals, x_max, 'тиск в кінці газопроводу (вхід до другої компресорної станції) атм');
-make_plot(time_x, RO0,'RO0', 'kg/m^3',     xlab, xticks_vals, x_max, 'густина газу за стандартних умов, кг/м3');
-make_plot(time_x, T1, 'T1',  '°C',         xlab, xticks_vals, x_max, 'температура газу в кінці газопроводу, град. С');
-make_plot(time_x, t2, 't2',  '°C',         xlab, xticks_vals, x_max, 'температура газу на початку газопроводу, град.С');
-make_plot(time_x, tg, 'tg',  'K',          xlab, xticks_vals, x_max, 'температура грунту, К');
+make_plot(time_x, P0, 'P0',  'atm',        xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ');
+make_plot(time_x, Q,  'Q',   'm^3/s (STP)',xlab, xticks_vals, x_max, 'пїЅб’єпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅ3/пїЅпїЅпїЅ');
+make_plot(time_x, pk, 'pk',  'atm',        xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅ');
+make_plot(time_x, RO0,'RO0', 'kg/m^3',     xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ/пїЅ3');
+make_plot(time_x, T1, 'T1',  'пїЅC',         xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ. пїЅ');
+make_plot(time_x, t2, 't2',  'пїЅC',         xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ.пїЅ');
+make_plot(time_x, tg, 'tg',  'K',          xlab, xticks_vals, x_max, 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ');
 
 % -------- Local function --------
 function make_plot(x, y, nameStr, yunit, xlab, xticks_vals, x_max, t)

@@ -1,4 +1,5 @@
 clc; clear; close all;
+addpath('functions', 'data');
 
 opts_ode = odeset('RelTol',1e-7,'AbsTol',1e-9);
 opts_opt = optimoptions('lsqnonlin','Display','iter','FunctionTolerance',1e-10,'StepTolerance',1e-10,'OptimalityTolerance',1e-10);

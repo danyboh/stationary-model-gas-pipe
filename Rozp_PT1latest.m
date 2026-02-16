@@ -1,4 +1,5 @@
 clc; clear;
+addpath('functions', 'data');
 u0=0; uf=122000;
 [P0_atm, Q, pEnd_atm, ro, ~, tempGasStart, ~] = getExpDataFunc(5);
 p0 = atm2pa_func(P0_atm); % convert to Pa
