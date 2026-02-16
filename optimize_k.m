@@ -17,7 +17,7 @@ P0_atm = 66.6;
 p1 = P0_atm*101325;   % Pa
 T1 = 273.15+40;
 y0=[p1 T1];
-[u,y]=ode45(@(u,p) SystRivn_v_2_Danyl_Func(u,p, Q1, a),[u0 uf], y0, options);
+[u,y]=ode45(@(u,p) SystRivn_v_2_Danyl_Func(u,p, Q1, a, 3.57254168),[u0 uf], y0, options);
 % Convert pressure from Pa to atm (1 atm = 101325 Pa)
 p_atm = y(:,1) / 101325;
 
@@ -27,7 +27,7 @@ p_final_expected = pEnd_atm;      % Expected final pressure
 
 % Calculate errors
 absolute_error = p_final_calculated - p_final_expected;
-relative_error_percent = (absolute_error / (P0_atm - p_final_expected)) * 100;
+relative_error_percent = (absolute_error / (p_final_expected)) * 100;
 
 r = 0 - relative_error_percent;
 

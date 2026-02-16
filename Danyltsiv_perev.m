@@ -20,9 +20,7 @@ Dz=1.428;       % m
 
 l0=0; lf=122000;  % m
 y0=[p1 T1];
-[l,y]=ode45(@(u,y) SystRivn_v_2_Danyl_Func(u,y, Q1, 3.57254168),[l0 lf], y0);
-
-%[l,y]=ode45('SystRivn_v_2_Danyl_Func',[l0 lf],y0, Q1);
+[l,y]=ode45(@(u,y) SystRivn_v_2_Danyl_Func(u,y, Q1, 3.57254168, 1.75),[l0 lf], y0);
 
 n=size(y);
 px=y(n(1),1);   % Pa
