@@ -74,7 +74,6 @@ hold on;
 plot(l(end), pEnd_atm, 'ro', 'MarkerSize', 8, 'LineWidth', 2);
 hold off;
 xlabel('L, m'); ylabel('P, atm');
-title('Pressure along pipeline');
 legend('Calculated', 'Expected endpoint');
 grid on;
 
@@ -84,7 +83,6 @@ hold on;
 plot(l(end), TExpCels, 'bo', 'MarkerSize', 8, 'LineWidth', 2);
 hold off;
 xlabel('L, m'); ylabel('t, C');
-title('Temperature along pipeline');
 legend('Calculated', 'Expected endpoint');
 grid on;
 
