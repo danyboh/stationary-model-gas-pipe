@@ -3,9 +3,12 @@ addpath('functions', 'data');
 %--------------------------------------------------------------------------
 P0_atm = 66.6;
 p1 = P0_atm*101325;   % Pa
-T1 = 273.15+40;   % K
+T1Cels = 40; % C 
+T1 = c2k_func(T1Cels);   % K
 Q1=day2sec_func(3506);      %m^3/sec
 pEnd_atm = 48.5;
+TExpCels = 26; % C
+TExp = c2k_func(TExpCels);   % K
 L=122000;        % m
 Dvn=1.388;      % m
 Dz=1.428;       % m
@@ -35,26 +38,53 @@ T=Tx;               % K
 p_atm = y(:,1) / 101325;
 t_c = k2c_func(y(:,2)); 
 
-% Calculate final pressure and error analysis
-p_final_calculated = p_atm(end);  % Last calculated pressure value
-p_final_expected = pEnd_atm;      % Expected final pressure
+% Pressure error analysis
+p_final_calculated = p_atm(end);
+absolute_error_p = p_final_calculated - pEnd_atm;
+relative_error_p = (absolute_error_p / pEnd_atm) * 100;
 
-% Calculate errors
-absolute_error = p_final_calculated - p_final_expected;
-relative_error_percent = (absolute_error / (p_final_expected)) * 100;
+% Temperature error analysis
+t_final_calculated = t_c(end);
+absolute_error_t = t_final_calculated - TExpCels;
+relative_error_t = (absolute_error_t / TExpCels) * 100;
 
 % Display results
 fprintf('\n=== PRESSURE DROP ANALYSIS ===\n');
 fprintf('Initial Pressure (P0):     %.4f atm\n', P0_atm);
-fprintf('Expected Final Pressure:   %.4f atm\n', p_final_expected);
+fprintf('Expected Final Pressure:   %.4f atm\n', pEnd_atm);
 fprintf('Calculated Final Pressure: %.4f atm\n', p_final_calculated);
-fprintf('Absolute Error:            %.4f atm\n', absolute_error);
-fprintf('Relative Error:            %.2f%%\n', relative_error_percent);
-fprintf('Expected Pressure Drop:    %.4f atm\n', P0_atm - p_final_expected);
+fprintf('Absolute Error:            %.4f atm\n', absolute_error_p);
+fprintf('Relative Error:            %.2f%%\n', relative_error_p);
+fprintf('Expected Pressure Drop:    %.4f atm\n', P0_atm - pEnd_atm);
 fprintf('Calculated Pressure Drop:  %.4f atm\n', P0_atm - p_final_calculated);
+
+fprintf('\n=== TEMPERATURE ANALYSIS ===\n');
+fprintf('Initial Temperature:        %.4f C\n', T1Cels);
+fprintf('Expected Final Temperature: %.4f C\n', TExpCels);
+fprintf('Calculated Final Temperature:%.4f C\n', t_final_calculated);
+fprintf('Absolute Error:             %.4f C\n', absolute_error_t);
+fprintf('Relative Error:             %.2f%%\n', relative_error_t);
 fprintf('===============================\n');
 
 %--------------------------------------------------------------------------
-figure(1), plot(l,p_atm), xlabel('L, m'), ylabel('P, atm'), grid
- figure(2), plot(l,t_c), xlabel('L, m'), ylabel('t, C'), grid
+figure(1);
+subplot(1,2,1);
+plot(l, p_atm, 'b', 'LineWidth', 1.5);
+hold on;
+plot(l(end), pEnd_atm, 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+hold off;
+xlabel('L, m'); ylabel('P, atm');
+title('Pressure along pipeline');
+legend('Calculated', 'Expected endpoint');
+grid on;
+
+subplot(1,2,2);
+plot(l, t_c, 'r', 'LineWidth', 1.5);
+hold on;
+plot(l(end), TExpCels, 'bo', 'MarkerSize', 8, 'LineWidth', 2);
+hold off;
+xlabel('L, m'); ylabel('t, C');
+title('Temperature along pipeline');
+legend('Calculated', 'Expected endpoint');
+grid on;
 

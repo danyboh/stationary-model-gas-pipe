@@ -11,9 +11,6 @@ R = 8314.472;     % Dg/(kMol*K)
 L=122000;        % m
 Dvn=1.388;      % m
 Dz=1.428;       % m
-% Dvn = 0.300;      % m
-% Dz = 0.330;       % m
-% L = 5000;         % m
 dely = 0;         % m
 
    
@@ -36,13 +33,8 @@ kt=1.75;          % Vt/(m2*K)
   C2 = 0.26954;
   kD = C2*Rsh/Dvn;
   kR = 5.035/Re;
-  %lyamda = (1.74-2*log10(2*Rsh/Dvn-k*log10(kD - kR*log10(kD+3.3333*kR))/Re))^(-2);%standart 
-  
-  %lyamda = 0.316/(Re).^(1/4) * k; % blasius
-  k = 3.536;
+  k = 1.64;
   lyamda = (0.79*log(Re) - k)^(-2);
-  %lyamda = 0.0092269839;
-  
 Tgr = 293.15; % K
   
 dp_dx = -(((Mm*g*dely.*p1^2)./(z*R*T*L)+(8*lyamda*qm^2*z*R.*T)./...
