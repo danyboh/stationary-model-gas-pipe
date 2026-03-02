@@ -31,7 +31,6 @@ Mj=VisG1Func(p,T,xa,xy,Roc);            % mkPa*s
   C2 = 0.26954;
   kD = C2*Rsh/Dvn;
   kR = 5.035/Re;
-  k = 1.64;
   lyamda = (0.79*log(Re) - k)^(-2);
 Tgr = 293.15; % K
   
