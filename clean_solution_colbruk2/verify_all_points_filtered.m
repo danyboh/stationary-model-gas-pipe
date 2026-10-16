@@ -111,16 +111,17 @@ save('errors_all_points_filtered.mat', 'ii_all', 'P0', 'Q', 'pk', 'T1', 't2', ..
 
 %% --- рисунок 1: відносна похибка по тиску ---
 figure('Name', 'Відносна похибка тиску', 'Color', 'w');
-h1 = plot(t_days_f, dP_rel_f, 'b', 'LineWidth', 0.8);
+h1 = plot(t_days_f, dP_rel_f, '-', 'Color', [0.6 0.6 0.6], 'LineWidth', 0.5);
 grid on
+xlim([0 300]);
 hline(0,       'k-',  0.8);
-h2 = hline(mP, 'r--', 1.2);
-h3 = hline(mP + sP, 'r:', 1.0);
-     hline(mP - sP, 'r:', 1.0);
+h2 = hline(mP, '-', 2, 'Color', [0.75 0.10 0.10]);
+h3 = hline(mP + sP, 'k--', 1.5);
+     hline(mP - sP, 'k--', 1.5);
 hold off
 xlabel('t, доба'); ylabel('\deltap, %');
-legend([h1 h2 h3], 'похибка', 'середнє', '\pm СКВ', 'Location', 'best');
-
+legend({'$\delta p$', '$\overline{\delta p}$', '$\overline{\delta p} \pm \sigma$'}, ...
+       'Interpreter', 'latex', 'FontSize', 11, 'Location', 'northeast');
 %% --- рисунок 2: відносна похибка по температурі ---
 figure('Name', 'Відносна похибка температури', 'Color', 'w');
 h1 = plot(t_days_f, dT_rel_f, 'r', 'LineWidth', 0.8);
@@ -164,10 +165,10 @@ title('Температура');
 
 
 %% ================= локальна функція =================
-function h = hline(yv, style, lw)
+function h = hline(yv, style, lw, varargin)
 % Горизонтальна лінія на поточних осях (заміна yline для MATLAB < R2018b)
     xl = get(gca, 'XLim');
     hold on
-    h = plot(xl, [yv yv], style, 'LineWidth', lw);
+    h = plot(xl, [yv yv], style, 'LineWidth', lw, varargin{:});
     set(gca, 'XLim', xl);
 end
